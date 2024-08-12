@@ -23,42 +23,42 @@
         /*{# from https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/ #}*/
         :root {
             --footer-a-color: #66aaff;
-            --protease-dark: #222;
+            --app-dark: #222;
             --gruppo: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
         }
 
-        #protease-navbar {
+        #app-navbar {
             /* z-index:500; */
             padding-top: 0;
             padding-bottom: 0;
         }
-        #protease-navbar .nav-link {
+        #app-navbar .nav-link {
             padding-top: .25rem;
             padding-bottom: .25rem;
         }
-        .protease-bg-dark {
-            background-color: var(--protease-dark);
+        .app-bg-dark {
+            background-color: var(--app-dark);
             color: var(--bs-light);
         }
-        .protease-bg-dark a {
+        .app-bg-dark a {
             color: var(--bs-light);
         }
-        .protease-bg-dark .dropdown-menu  {
-            background-color: var(--protease-dark);
+        .app-bg-dark .dropdown-menu  {
+            background-color: var(--app-dark);
         }
 
-        #protease-footer a:hover {
+        #app-footer a:hover {
             color: var(--bs-white);
         }
 
-        #protease-footer a {
+        #app-footer a {
             color: var(--footer-a-color);
         }
         #hero {
             width:100%;
             height:200px;
             background: bottom / cover url('{{url_for('static', filename='img/proteases-statue.jpg')}}'),
-                var(--protease-dark);
+                var(--app-dark);
             background-repeat: repeat-x;
         }
 
@@ -90,15 +90,8 @@
         }
 
 
-        .protease-bg-dark a.offsite {
+        .app-bg-dark a.offsite {
             background-image: url("{{offsite('#66aaff', '#000000')}}");
-        }
-        .nav-link.active .fa-circle {
-                color:orange;
-                opacity: .8;
-        }
-        .nav-link.active:hover .fa-circle {
-                opacity: 1.0;
         }
         #toast-container > .toast-error {
             background-color: var(--bs-danger) !important;
@@ -133,7 +126,7 @@
 
         {% block header %}
         <header>
-            <div id="hero" class="d-none d-lg-block protease-bg-dark text-white">
+            <div id="hero" class="d-none d-lg-block app-bg-dark text-white">
                 <span class="header-text">
                     <span>{{config.APP_NAME}}</span>
                 </span>
@@ -150,18 +143,18 @@
         </header>
         {% endblock header %}
         {% block navbar %}
-        <nav id="protease-navbar" class="navbar sticky-top navbar-expand-md navbar-dark protease-bg-dark" id="top">
+        <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg-dark" id="top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="{{url_for('static', filename='img/flask.webp')}}" style="height:1.1em; margin-top:-2px" alt="{{config.APP_NAME}} logo"/>
                     {{config.APP_NAME}}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#protease-navbar-collapse"
-                    aria-controls="protease-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
+                    aria-controls="app-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div id="protease-navbar-collapse" class="collapse navbar-collapse" role="navigation">
+                <div id="app-navbar-collapse" class="collapse navbar-collapse" role="navigation">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a {{ nav_link('view.index') }} title="Home">
@@ -190,7 +183,7 @@
         {% block postcontent %}{% endblock %}
 
         {% block footer %}
-        <footer id="protease-footer" class="protease-bg-dark text-light">
+        <footer id="app-footer" class="app-bg-dark text-light">
             <div class="container">
 
                 <img src="{{url_for('static', filename='img/flask.webp')}}"
