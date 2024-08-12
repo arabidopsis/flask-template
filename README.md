@@ -1,2 +1,3 @@
 # flask-template
-template for bootstrapping a flask app
+
+Template for bootstrapping a flask app

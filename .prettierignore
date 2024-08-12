@@ -1,0 +1,3 @@
+app/templates/**/*.html
+app/templates/*.html
+app/emma/templates/*.html

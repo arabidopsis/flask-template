@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+{%- from "fragments/macros.html" import offsite, maintainer, nav_link -%}
+<html lang="en">
+<head>
+
+    <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
+    {% block meta %}{% endblock meta %}
+    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" />
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/flask.webp')}}" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" />
+
+    {{ cdn_css("bootstrap") }}
+
+
+    {% if config.FONT_ICONS %}
+
+        {{ cdn_css("fontawesome") }}
+
+    {% endif %}
+    {% block cdn_css %}{% endblock %}
+    <style>
+        /*{# from https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/ #}*/
+        :root {
+            --footer-a-color: #66aaff;
+            --protease-dark: #222;
+            --gruppo: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
+        }
+
+        #protease-navbar {
+            /* z-index:500; */
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        #protease-navbar .nav-link {
+            padding-top: .25rem;
+            padding-bottom: .25rem;
+        }
+        .protease-bg-dark {
+            background-color: var(--protease-dark);
+            color: var(--bs-light);
+        }
+        .protease-bg-dark a {
+            color: var(--bs-light);
+        }
+        .protease-bg-dark .dropdown-menu  {
+            background-color: var(--protease-dark);
+        }
+
+        #protease-footer a:hover {
+            color: var(--bs-white);
+        }
+
+        #protease-footer a {
+            color: var(--footer-a-color);
+        }
+        #hero {
+            width:100%;
+            height:200px;
+            background: bottom / cover url('{{url_for('static', filename='img/proteases-statue.jpg')}}'),
+                var(--protease-dark);
+            background-repeat: repeat-x;
+        }
+
+        #wrap {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+        }
+
+        .header-text {
+            height: 100%;
+            font-size: 4em;
+            font-family: var(--gruppo);
+            color: var(--bs-white);
+            text-shadow: 2px 2px black;
+        }
+        .header-font {
+            font-family: var(--gruppo);
+        }
+
+        a.offsite {
+            background-position: right center;
+            background-repeat: no-repeat;
+            padding-right: 12px;
+            background-image: url("{{offsite('#007bff', '#ffffff')}}");
+        }
+
+
+        .protease-bg-dark a.offsite {
+            background-image: url("{{offsite('#66aaff', '#000000')}}");
+        }
+        .nav-link.active .fa-circle {
+                color:orange;
+                opacity: .8;
+        }
+        .nav-link.active:hover .fa-circle {
+                opacity: 1.0;
+        }
+        #toast-container > .toast-error {
+            background-color: var(--bs-danger) !important;
+        }
+        #toast-container > .toast-warning {
+            background-color: var(--bs-warning) !important;
+        }
+        #toast-container > .toast-success {
+            background-color: var(--bs-success) !important;
+        }
+        #toast-container > .toast-info {
+            background-color: var(--bs-info) !important;
+        }
+
+    </style>
+
+    {% block css %}{% endblock css %}
+
+    {% block header_js %}{% endblock %}
+    {# PEB greens clockwise darkest to lightest #768d28 #a6bd28 #becf5a #dee5a2 #}
+
+</head>
+
+<body>
+    {% block body_top %}{% endblock %}
+    {# include "fragments/beta.html" #}
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+    {# needs to be outside any effects divs #}
+    {% block dialogs %}{% endblock dialogs %}
+
+    <div id="wrap">
+
+        {% block header %}
+        <header>
+            <div id="hero" class="d-none d-lg-block protease-bg-dark text-white">
+                <span class="header-text">
+                    <span>{{config.APP_NAME}}</span>
+                </span>
+                <img src="{{url_for('static', filename='img/flask.webp')}}"  style="margin:1em; float:right; height:150px; display:block"/>
+            </div>
+
+            <div class="d-lg-none header-font text-white text-center bg-info"
+                style="height:2.5em;">
+                <div style="font-size:1.8em;">
+                    {{config.APP_NAME}}
+                </div>
+            </div>
+
+        </header>
+        {% endblock header %}
+        {% block navbar %}
+        <nav id="protease-navbar" class="navbar sticky-top navbar-expand-md navbar-dark protease-bg-dark" id="top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="{{url_for('static', filename='img/flask.webp')}}" style="height:1.1em; margin-top:-2px" alt="{{config.APP_NAME}} logo"/>
+                    {{config.APP_NAME}}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#protease-navbar-collapse"
+                    aria-controls="protease-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div id="protease-navbar-collapse" class="collapse navbar-collapse" role="navigation">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a {{ nav_link('view.index') }} title="Home">
+                                Home <span class="fas fa-home"></span>
+                            </a>
+                        </li>
+
+                        {% block navbar_left %}{% endblock %}
+
+                    </ul>
+                    <ul class="navbar-nav">
+                        {%- block navbar_right -%}
+                        {% endblock navbar_right %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% endblock navbar %}
+
+        {% block precontent %}{% endblock %}
+
+        <main id="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        {% block postcontent %}{% endblock %}
+
+        {% block footer %}
+        <footer id="protease-footer" class="protease-bg-dark text-light">
+            <div class="container">
+
+                <img src="{{url_for('static', filename='img/flask.webp')}}"
+                        style="float:right; height:5em; padding-top:1em;"
+                            alt="Plants for Space logo" />
+                <div class="d-flex justify-content-around">
+                    <div>
+                        <ul class="list-inline text-center" style="padding-top:.5em">
+                            <li class="list-inline-item">
+                                <a class="offsite" href="https://plantenergy.edu.au"
+                                    target="_blank">© {{year}} Plant Energy Biology</a>
+                            </li>
+                            <li class="list-inline-item">|</li>
+                            <li class="list-inline-item">version:
+                                <span class="text-muted">
+                                    {{ config['GIT_VERSION'][:7] }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="text-center mb-1">
+                    <div class="d-none d-lg-flex justify-content-around">
+                        <img alt="Creative Commons License" style="border-width:0"
+                            src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+                    </div>
+                    <div class="d-flex justify-content-around">
+                        <small>
+                        &copy; {{year}}.
+                        This work is licensed under a <a rel="license" class="offsite"
+                            href="https://creativecommons.org/licenses/by/4.0/">
+                            Creative Commons Attribution 4.0 International License</a>.
+                        <i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by IRC.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        {% endblock footer %}
+    </div> {# id=wrap #}
+    {{ cdn_js("jquery") }}
+    {{ cdn_js("bootstrap") }}
+    {{ cdn_js("toastr") }}
+
+
+    {% if not config.FONT_ICONS %}
+
+        {{ cdn_js("fontawesome") }}
+
+    {% endif %}
+    {% block js %}{% endblock js %}
+    {% block stream %}{% endblock %}
+</body>
+</html>
