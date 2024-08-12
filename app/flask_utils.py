@@ -7,6 +7,7 @@ from os.path import abspath
 from os.path import isfile
 from os.path import join
 from os.path import normpath
+from random import random
 from typing import Any
 
 from flask import current_app
@@ -125,6 +126,8 @@ def register_filters(app: Flask) -> None:
     import gzip
     from .utils import human, attrstr
 
+    version = app.config["VERSION"]
+
     # from .cdn import CDN
     with open(join(app.root_path, "cdn.toml"), "rb") as fp:
         CDN = tomllib.load(fp)
@@ -169,12 +172,23 @@ def register_filters(app: Flask) -> None:
             {integrity} {attrs}crossorigin="anonymous">""",
         )
 
+    if app.debug:
+
+        def getversion():
+            return {"v": f"v{random()}"}
+
+    else:
+
+        def getversion():
+            return {"v": version}
+
     # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
     app.jinja_env.globals["year"] = datetime.now().year
     app.jinja_env.globals["base_template"] = app.config["BASE_TEMPLATE"]
+    app.jinja_env.globals["getversion"] = getversion
 
     @app.template_filter()
     def split(s, sep=None):  # pylint: disable=unused-variable

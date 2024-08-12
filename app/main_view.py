@@ -12,7 +12,7 @@ view = Blueprint("view", __name__)
 @view.route("/")
 def index():
     return render_template(
-        "raw.html",
+        "base.html",
     )
 
 

@@ -71,3 +71,12 @@ href = "https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"
 [htmx.js]
 src = "https://unpkg.com/htmx.org@2.0.1"
 integrity = "sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+
+[notyf.js]
+src = "https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.js"
+integrity = "sha256-UnlpkMLasaTx2ZqovxBXUcQ5jq3oKXaZZ1aWENNFETE="
+
+
+[notyf.css]
+href = "https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css"
+integrity = "sha256-IwkvZNRC/3S26O1gWwjBINmrPZ4zYvPX4z/98OKWHkQ="
