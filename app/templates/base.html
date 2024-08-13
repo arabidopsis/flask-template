@@ -130,7 +130,7 @@
                 <span class="header-text">
                     <span>{{config.APP_NAME}}</span>
                 </span>
-                <img src="{{url_for('static', filename='img/flask.webp')}}"  style="margin:1em; float:right; height:150px; display:block"/>
+                <img src="{{url_for('static', filename='img/flask.webp')}}" alt="{{config.APP_NAME}} logo"  style="margin:1em; float:right; height:150px; display:block"/>
             </div>
 
             <div class="d-lg-none header-font text-white text-center bg-info"
@@ -188,7 +188,7 @@
 
                 <img src="{{url_for('static', filename='img/flask.webp')}}"
                         style="float:right; height:5em; padding-top:1em;"
-                            alt="Plants for Space logo" />
+                        alt="{{config.APP_NAME}} logo" />
                 <div class="d-flex justify-content-around">
                     <div>
                         <ul class="list-inline text-center" style="padding-top:.5em">
