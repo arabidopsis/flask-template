@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Page Not Found</title>
     <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" />
-    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/p4s.png')}}" />
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/flask.webp')}}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
@@ -27,9 +27,6 @@
             vertical-align: middle;
             margin: 2em auto;
             background-color: #888;
-            {#-
-            background: #000000 center / contain no-repeat url('{{url_for('static', filename='img/For_clickable_maps.svgz')}}');
-            #}
         }
 
         h1 {
@@ -64,6 +61,6 @@
 <body>
     <h1>Page Not Found</h1>
     <p>Sorry, but the page you were trying to view does not exist.</p>
-    <p> <a href="{{ request.referrer  or  url_for('papers.show') }}"> Back </a> </p>
+    <p> <a href="{{ request.referrer  or  url_for('view.index') }}"> Back </a> </p>
 </body>
 </html>
