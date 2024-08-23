@@ -15,7 +15,7 @@
 
     {% if config.FONT_ICONS %}
 
-        {{ cdn_css("fontawesome") }}
+        {{ cdn_css("fontawesome5") }}
 
     {% endif %}
     {% block cdn_css %}{% endblock %}
@@ -229,7 +229,7 @@
 
     {% if not config.FONT_ICONS %}
 
-        {{ cdn_js("fontawesome") }}
+        {{ cdn_js("fontawesome5") }}
 
     {% endif %}
     {% block js %}{% endblock js %}

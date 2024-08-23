@@ -15,11 +15,11 @@ integrity = "sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6
 href = "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
 integrity = "sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd"
 
-[fontawesome.js]
+[fontawesome5.js]
 src = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"
 integrity = "sha512-YSdqvJoZr83hj76AIVdOcvLWYMWzy6sJyIMic2aQz5kh2bPTd9dzY3NtdeEAzPp/PhgZqr4aJObB3ym/vsItMg=="
 
-[fontawesome.css]
+[fontawesome5.css]
 href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
 integrity = "sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
 
@@ -84,7 +84,7 @@ integrity = "sha256-UnlpkMLasaTx2ZqovxBXUcQ5jq3oKXaZZ1aWENNFETE="
 href = "https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css"
 integrity = "sha256-IwkvZNRC/3S26O1gWwjBINmrPZ4zYvPX4z/98OKWHkQ="
 
-# hash from https://www.srihash.org/
+# integrity hash from https://www.srihash.org/
 [hyperscript.js]
 src = "https://unpkg.com/hyperscript.org@0.9.12"
 integrity = "sha384-+Uth1QzYJsTjnS5SXVN3fFO4I32Y571xIuv53WJ2SA7y5/36tKU1VCutONAmg5eH"
