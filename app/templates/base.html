@@ -23,7 +23,7 @@
         /*{# from https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/ #}*/
         :root {
             --footer-a-color: #66aaff;
-            --app-dark: #222;
+            --app-dark: var(--bs-dark,black);
             --gruppo: Gruppo, "Ubuntu", var(--bs-font-sans-serif);
         }
 
@@ -133,7 +133,7 @@
                 <img src="{{url_for('static', filename='img/flask.webp')}}" alt="{{config.APP_NAME}} logo"  style="margin:1em; float:right; height:150px; display:block"/>
             </div>
 
-            <div class="d-lg-none header-font text-white text-center bg-info"
+            <div class="d-lg-none header-font text-white text-center app-bg-dark"
                 style="height:2.5em;">
                 <div style="font-size:1.8em;">
                     {{config.APP_NAME}}
@@ -188,6 +188,7 @@
 
                 <img src="{{url_for('static', filename='img/flask.webp')}}"
                         style="float:right; height:5em; padding-top:1em;"
+                        class="d-none d-lg-block"
                         alt="{{config.APP_NAME}} logo" />
                 <div class="d-flex justify-content-around">
                     <div>

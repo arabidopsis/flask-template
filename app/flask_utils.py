@@ -99,8 +99,6 @@ def merge_dict(d1: dict, d2: dict) -> dict:
 def config_app(config: BaseConfig) -> BaseConfig:
     config.from_object(f"{NAME}.config")
     config.from_pyfile(f"{NAME}.cfg", silent=True)
-    if "CELERY" in config:
-        merge_dict(config["CELERY_CONFIG"], config.pop("CELERY"))
 
     return config
 
@@ -132,13 +130,13 @@ def register_filters(app: Flask) -> None:
     with open(join(app.root_path, "cdn.toml"), "rb") as fp:
         CDN = tomllib.load(fp)
 
-    app.template_filter("human")(human)
-
     def include_raw(filename: str) -> Markup:
-        loader: FileSystemLoader = app.jinja_loader  # type: ignore
+        loader: FileSystemLoader | None = app.jinja_loader  # type: ignore
         if loader is None:
             raise TemplateNotFound(filename)
         if filename.endswith((".gz", ".svgz")):
+            if not hasattr(loader, "searchpath"):
+                raise TemplateNotFound(filename)
             for path in loader.searchpath:
                 f = join(path, filename)
                 if isfile(f):
@@ -188,6 +186,8 @@ def register_filters(app: Flask) -> None:
     app.jinja_env.globals["year"] = datetime.now().year
     app.jinja_env.globals["base_template"] = app.config["BASE_TEMPLATE"]
     app.jinja_env.globals["getversion"] = getversion
+
+    app.template_filter("human")(human)
 
     @app.template_filter()
     def split(s, sep=None):  # pylint: disable=unused-variable
