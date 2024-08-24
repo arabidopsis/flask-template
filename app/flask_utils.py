@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import gzip
 import os
 import tomllib
 from datetime import datetime
@@ -21,6 +22,9 @@ from jinja2 import FileSystemBytecodeCache
 from jinja2 import FileSystemLoader
 from jinja2 import TemplateNotFound
 from markupsafe import Markup
+
+from .utils import attrstr
+from .utils import human
 
 NAME = __name__.split(".", maxsplit=1)[0]
 
@@ -121,8 +125,6 @@ def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
 
 def register_filters(app: Flask) -> None:
     """Register page not found filters."""
-    import gzip
-    from .utils import human, attrstr
 
     version = app.config["VERSION"]
 
