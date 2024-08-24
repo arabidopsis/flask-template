@@ -1,6 +1,10 @@
 ;(function () {
   // turn Notfy into a more toastr like interface
-  const notyf = new Notyf({
+  if (!window.Notyf) {
+    console.log('no Notyf!')
+    return
+  }
+  const notyf = new window.Notyf({
     position: { x: "right", y: "top" },
     types: [
       {
