@@ -42,6 +42,9 @@ def init_full_app(app: Flask) -> None:
 
 def init_fg_app(app: Flask) -> Flask:
     # pylint: disable=reimported
+    from .logger import init_logger
+
+    init_logger(app)
 
     from .main_view import init_app
 

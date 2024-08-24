@@ -182,7 +182,6 @@ def register_filters(app: Flask) -> None:
         def getversion():
             return {"v": version}
 
-    # for nunjucks includes
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
