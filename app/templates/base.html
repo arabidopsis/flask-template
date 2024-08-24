@@ -177,18 +177,26 @@
         {% block precontent %}{% endblock %}
 
         <main id="main-content">
-            {% block content %}{% endblock %}
+            {% block content %}
+            <div class="container w-50">
+                <h2 class="text-center mt-3">Flask Template</h2>
+                <p>
+                Pretty minimal template to get started with a flask website.
+                Feel free to hack and delete your copy of it.
+                </p>
+            </div>
+            {% endblock %}
         </main>
 
         {% block postcontent %}{% endblock %}
 
         {% block footer %}
         <footer id="app-footer" class="app-bg-dark text-light">
-            <div class="container">
+            <div class="container position-relative">
 
                 <img src="{{url_for('static', filename='img/flask.webp')}}"
-                        style="float:right; height:5em; padding-top:1em;"
-                        class="d-none d-lg-block"
+                        style="right: 0em; height:5em; padding-top:1em;"
+                        class="d-none d-lg-block position-absolute"
                         alt="{{config.APP_NAME}} logo" />
                 <div class="d-flex justify-content-around">
                     <div>
