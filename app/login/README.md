@@ -11,3 +11,10 @@ to whitelist.
 The "database" in this case is just either a single
 `password` or a dictionary of `email` => `password`
 as spcified by `SITE_PASSWORD` configuration variable.
+You can of course improve on this... :)
+
+Just ensure that you call `init_app` in `login_view.py`
+when creating your app (see `app.init_fg_app`).
+
+Of course if you don't need any of this just delete this directory;
+There is no dependency in the main app.
