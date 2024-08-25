@@ -16,7 +16,7 @@ from flask import Flask
 from flask import render_template
 from flask import Response
 from flask import stream_with_context
-from flask.config import Config as BaseConfig
+from flask.config import Config
 from flask.sansio.scaffold import find_package
 from jinja2 import FileSystemBytecodeCache
 from jinja2 import FileSystemLoader
@@ -40,14 +40,6 @@ def stream_template(template_name: str, **context) -> Response:
     # rv.disable_buffering()
     rv.enable_buffering(5)
     return Response(stream_with_context(rv))
-
-
-class Config(BaseConfig):
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError as ex:
-            raise AttributeError(key) from ex
 
 
 def auto_find_instance_path(name: str = NAME) -> str:
@@ -100,14 +92,14 @@ def merge_dict(d1: dict, d2: dict) -> dict:
     return d1
 
 
-def config_app(config: BaseConfig) -> BaseConfig:
+def config_app(config: Config) -> Config:
     config.from_object(f"{NAME}.config")
     config.from_pyfile(f"{NAME}.cfg", silent=True)
 
     return config
 
 
-def create_and_config(name: str = NAME) -> BaseConfig:
+def create_and_config(name: str = NAME) -> Config:
     return config_app(init_config(name))
 
 
@@ -125,8 +117,6 @@ def register_bytecode_cache(app: Flask, directory="bytecode_cache") -> None:
 
 def register_filters(app: Flask) -> None:
     """Register page not found filters."""
-
-    version = app.config["VERSION"]
 
     # from .cdn import CDN
     with open(join(app.root_path, "cdn.toml"), "rb") as fp:
@@ -172,6 +162,9 @@ def register_filters(app: Flask) -> None:
             {integrity} {attrs}crossorigin="anonymous">""",
         )
 
+    # for cache busting js and css files
+    # e.g. url_for('static', filename='js/myjs.js', **getversion())
+    version = app.config["VERSION"]
     if app.debug:
 
         def getversion():

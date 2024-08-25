@@ -143,12 +143,14 @@ def init_app(app: Flask, url_prefix: str = "/") -> None:
 
     okendpoints = {
         "login.login_cmd",
-        "login.logout_cmd",
+        # "login.logout_cmd",
         "static",
     }
 
     public = app.config.get("PUBLIC_ENDPOINTS")
     if public is not None:
+        if isinstance(public, str):
+            public = [public]
         okendpoints |= set(public)
 
     @app.before_request

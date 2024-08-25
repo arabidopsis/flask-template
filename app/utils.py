@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import math
 import subprocess
+from pathlib import Path
 from shutil import which
 from typing import Any
 
@@ -13,9 +14,10 @@ def git_version() -> str | None:
     git = which("git")
     if git is None:
         return None
+    d = Path(__file__).parent.parent
 
     r = subprocess.run(
-        [git, "rev-parse", "HEAD"],
+        [git, "-C", str(d), "rev-parse", "HEAD"],
         stdout=subprocess.PIPE,
         check=False,
         stderr=subprocess.DEVNULL,
