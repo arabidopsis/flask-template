@@ -9,6 +9,12 @@ from .flask_utils import register_filters
 from .utils import git_version
 
 
+def create_app() -> Flask:
+    app = create_init_app()
+    init_full_app(app)
+    return app
+
+
 def create_init_app() -> Flask:
     app = Flask(
         "app",
@@ -30,17 +36,7 @@ def create_init_app() -> Flask:
     return app
 
 
-def create_app() -> Flask:
-    app = create_init_app()
-    init_full_app(app)
-    return app
-
-
 def init_full_app(app: Flask) -> None:
-    init_fg_app(app)
-
-
-def init_fg_app(app: Flask) -> Flask:
     # pylint: disable=reimported
     from .logger import init_logger
 
@@ -53,5 +49,3 @@ def init_fg_app(app: Flask) -> Flask:
     register_filters(app)
 
     register_bytecode_cache(app)
-
-    return app
