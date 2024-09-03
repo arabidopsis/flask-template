@@ -5,11 +5,12 @@ import os
 import tomllib
 from datetime import datetime
 from os.path import abspath
-from os.path import isfile
 from os.path import join
 from os.path import normpath
+from pathlib import Path
 from random import random
 from typing import Any
+from typing import Iterator
 
 from flask import current_app
 from flask import Flask
@@ -123,21 +124,37 @@ def register_filters(app: Flask) -> None:
         CDN = tomllib.load(fp)
 
     def include_raw(filename: str) -> Markup:
-        loader: FileSystemLoader | None = app.jinja_loader  # type: ignore
-        if loader is None:
-            raise TemplateNotFound(filename)
-        if filename.endswith((".gz", ".svgz")):
-            if not hasattr(loader, "searchpath"):
-                raise TemplateNotFound(filename)
+        def markup(loader: FileSystemLoader | None) -> Markup | None:
+            if loader is None:
+                return None
             for path in loader.searchpath:
-                f = join(path, filename)
-                if isfile(f):
+                f = Path(path).joinpath(filename)
+                if f.is_file():
                     with gzip.open(f, "rt", encoding="utf8") as fp:
                         return Markup(fp.read())
+            return None
+
+        def get_loaders() -> Iterator[FileSystemLoader]:
+            loader = app.jinja_loader
+            if isinstance(loader, FileSystemLoader):
+                yield loader
+
+            for blueprint in app.iter_blueprints():
+                loader = blueprint.jinja_loader
+                if isinstance(loader, FileSystemLoader):
+                    yield loader
+
+        if filename.endswith((".gz", ".svgz")):
+            for loader in get_loaders():
+                ret = markup(loader)
+                if ret is not None:
+                    return ret
             raise TemplateNotFound(filename)
 
-        src = loader.get_source(app.jinja_env, filename)[0]
-
+        ldr = app.jinja_env.loader
+        if ldr is None:
+            raise TemplateNotFound(filename)
+        src = ldr.get_source(app.jinja_env, filename)[0]
         return Markup(src)
 
     def cdn_js(key, **kwargs):
