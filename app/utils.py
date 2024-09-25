@@ -28,11 +28,12 @@ def git_version() -> str | None:
 
 
 def attrstr(kwargs: dict[str, Any]) -> str:
-    attrs = " ".join(
-        f'{escape(k.replace("_", "-"))}="{escape(v)}"'
-        for k, v in kwargs.items()
-        if v is not None
-    )
+    def out(k: str, v: Any) -> str:
+        if v is True:
+            return escape(k.replace("_", "-"))
+        return f'{escape(k.replace("_", "-"))}="{escape(v)}"'
+
+    attrs = " ".join(out(k, v) for k, v in kwargs.items() if v is not None)
     if attrs:
         attrs += " "
     return attrs

@@ -159,19 +159,22 @@ def register_filters(app: Flask) -> None:
 
     def cdn_js(key, **kwargs):
         js = CDN[key]["js"]
-        async_ = "async" if js.get("async", False) else ""
-        attrs = attrstr(kwargs)
+        args = {k: v for k, v in js.items() if k not in ["integrity", "src"]}
+        args.update(kwargs)
+        attrs = attrstr(args)
         integrity = js.get("integrity")
         integrity = f'integrity="{integrity}"' if integrity else ""
 
         return Markup(
-            f"""<script src="{js['src']}" {async_}
+            f"""<script src="{js['src']}"
             {integrity} {attrs}crossorigin="anonymous"></script>""",
         )
 
     def cdn_css(key, **kwargs):
         css = CDN[key]["css"]
-        attrs = attrstr(kwargs)
+        args = {k: v for k, v in css.items() if k not in ["integrity", "href"]}
+        args.update(kwargs)
+        attrs = attrstr(args)
         integrity = css.get("integrity")
         integrity = f'integrity="{integrity}"' if integrity else ""
         return Markup(
