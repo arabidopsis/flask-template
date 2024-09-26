@@ -34,8 +34,6 @@ def attrstr(kwargs: dict[str, Any]) -> str:
         return f'{escape(k.replace("_", "-"))}="{escape(v)}"'
 
     attrs = " ".join(out(k, v) for k, v in kwargs.items() if v is not None)
-    if attrs:
-        attrs += " "
     return attrs
 
 

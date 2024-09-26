@@ -161,25 +161,29 @@ def register_filters(app: Flask) -> None:
         js = CDN[key]["js"]
         args = {k: v for k, v in js.items() if k not in ["integrity", "src"]}
         args.update(kwargs)
+        args.setdefault("crossorigin", "anonymous")
+        args.setdefault("referrerpolicy", "no-referer")
         attrs = attrstr(args)
         integrity = js.get("integrity")
         integrity = f'integrity="{integrity}"' if integrity else ""
 
         return Markup(
             f"""<script src="{js['src']}"
-            {integrity} {attrs}crossorigin="anonymous"></script>""",
+            {integrity} {attrs}></script>""",
         )
 
     def cdn_css(key, **kwargs):
         css = CDN[key]["css"]
-        args = {k: v for k, v in css.items() if k not in ["integrity", "href"]}
+        args = {k: v for k, v in css.items() if k not in ["integrity", "href", "rel"]}
         args.update(kwargs)
+        args.setdefault("crossorigin", "anonymous")
+        args.setdefault("referrerpolicy", "no-referer")
         attrs = attrstr(args)
         integrity = css.get("integrity")
         integrity = f'integrity="{integrity}"' if integrity else ""
         return Markup(
             f"""<link rel="stylesheet" href="{css['href']}"
-            {integrity} {attrs}crossorigin="anonymous">""",
+            {integrity} {attrs}>""",
         )
 
     # for cache busting js and css files
