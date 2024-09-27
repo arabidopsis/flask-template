@@ -66,11 +66,11 @@ integrity = "sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA="
 
 [datatables.js]
 src = "https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"
-integrity="sha384-/+lMY1Q+32LzZlNRStHLIp76PCNXWUYqMZft+ClMnfnTIeH16eT732DHr4R494uH"
+integrity = "sha384-/+lMY1Q+32LzZlNRStHLIp76PCNXWUYqMZft+ClMnfnTIeH16eT732DHr4R494uH"
 
 [datatables.css]
 href = "https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"
-integrity="sha384-4+3RMUungd+Oh0juS2Jl3yQ7mPlVfsgr10NLSsqltLXIECi9ExY4d1cTtmf9aN8E"
+integrity = "sha384-4+3RMUungd+Oh0juS2Jl3yQ7mPlVfsgr10NLSsqltLXIECi9ExY4d1cTtmf9aN8E"
 
 [htmx.js]
 src = "https://unpkg.com/htmx.org@2.0.1"
@@ -88,3 +88,13 @@ integrity = "sha256-IwkvZNRC/3S26O1gWwjBINmrPZ4zYvPX4z/98OKWHkQ="
 [hyperscript.js]
 src = "https://unpkg.com/hyperscript.org@0.9.12"
 integrity = "sha384-+Uth1QzYJsTjnS5SXVN3fFO4I32Y571xIuv53WJ2SA7y5/36tKU1VCutONAmg5eH"
+
+[alpine.js]
+src = "https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"
+integrity = "sha384-l8f0VcPi/M1iHPv8egOnY/15TDwqgbOR1anMIJWvU6nLRgZVLTLSaNqi/TOoT5Fh"
+defer = true
+
+["x-mask".js]
+src = "https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.14.1/dist/cdn.min.js"
+integrity = "sha384-qL2dljsiaTEyOE0WGNuUuHa04NBhOSx8f8XUA7cVZs+ANODOIg71NS1RLiBO2gX+"
+defer = true
