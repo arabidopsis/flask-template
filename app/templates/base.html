@@ -6,7 +6,7 @@
     <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
     {% block meta %}{% endblock meta %}
     <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" />
-    <link rel="apple-touch-icon" href="{{url_for('static', filename='img/flask.webp')}}" />
+    <link rel="apple-touch-icon" href="{{url_for('static', filename=config.ICON)}}" />
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" />
 
@@ -130,7 +130,7 @@
                 <span class="header-text">
                     <span>{{config.APP_NAME}}</span>
                 </span>
-                <img src="{{url_for('static', filename='img/flask.webp')}}" alt="{{config.APP_NAME}} logo"  style="margin:1em; float:right; height:150px; display:block"/>
+                <img src="{{url_for('static', filename=config.ICON)}}" alt="{{config.APP_NAME}} logo"  style="margin:1em; float:right; height:150px; display:block"/>
             </div>
 
             <div class="d-lg-none header-font text-white text-center app-bg-dark"
@@ -146,7 +146,7 @@
         <nav id="app-navbar" class="navbar sticky-top navbar-expand-md navbar-dark app-bg-dark" id="top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="{{url_for('static', filename='img/flask.webp')}}" style="height:1.1em; margin-top:-2px" alt="{{config.APP_NAME}} logo"/>
+                    <img src="{{url_for('static', filename=config.ICON)}}" style="height:1.1em; margin-top:-2px" alt="{{config.APP_NAME}} logo"/>
                     {{config.APP_NAME}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#app-navbar-collapse"
@@ -194,7 +194,7 @@
         <footer id="app-footer" class="app-bg-dark text-light">
             <div class="container position-relative">
 
-                <img src="{{url_for('static', filename='img/flask.webp')}}"
+                <img src="{{url_for('static', filename=config.ICON)}}"
                         style="right: 0em; height:5em; padding-top:1em;"
                         class="d-none d-lg-block position-absolute"
                         alt="{{config.APP_NAME}} logo" />
