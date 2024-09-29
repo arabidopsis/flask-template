@@ -46,6 +46,15 @@ def init_full_app(app: Flask) -> None:
 
     init_app(app)
 
+    # init_login(app)
+
     register_filters(app)
 
     register_bytecode_cache(app)
+
+
+def init_login(app: Flask) -> None:
+
+    from .login.login_view import init_app
+
+    init_app(app)

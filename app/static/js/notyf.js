@@ -1,5 +1,5 @@
 ;(function () {
-  // turn Notfy into a more toastr like interface
+  // turn Notyf into a more toastr like interface
   if (!window.Notyf) {
     console.log('no Notyf!')
     return
