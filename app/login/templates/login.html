@@ -22,7 +22,7 @@
         type="hidden"
         name="next"
         value="{{request.values.get('next') or ''}}"
-      />
+      >
       {% if email_required %}
       <label for="email">Email: </label>
       <input
@@ -31,7 +31,7 @@
         name="email"
         id="email"
         value="{{email or ''}}"
-      />
+      >
         {% if bademail %}
         <div class="invalid-feedback">Invalid email</div>
         {% endif %}
@@ -43,7 +43,7 @@
         name="password"
         id="password"
         type="password"
-      />
+      >
       {% if badpwd %}
       <div class="invalid-feedback">Invalid password</div>
       {% endif %}
