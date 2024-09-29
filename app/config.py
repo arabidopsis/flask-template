@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 APP_NAME = "My Application"
+# for meta tags
+APP_SUMMARY = APP_NAME
+URL = "https://some.website"
 
 BASE_TEMPLATE = "base.html"
 

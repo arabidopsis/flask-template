@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-{%- from "fragments/macros.html" import offsite, maintainer, nav_link -%}
+{% from "fragments/macros.html" import offsite, maintainer, nav_link -%}
 <html lang="en">
 <head>
 
     <title>{% block title %}{{config.APP_NAME}}{% endblock %}</title>
+    {% include "fragments/meta.html" %}
     {% block meta %}{% endblock meta %}
-    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" />
-    <link rel="apple-touch-icon" href="{{url_for('static', filename=config.ICON)}}" />
+    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" >
+    <link rel="apple-touch-icon" href="{{url_for('static', filename=config.ICON)}}" >
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Gruppo" >
 
     {{ cdn_css("bootstrap") }}
 
