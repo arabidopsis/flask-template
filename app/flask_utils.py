@@ -17,6 +17,7 @@ from flask import Flask
 from flask import render_template
 from flask import Response
 from flask import stream_with_context
+from flask import url_for
 from flask.config import Config
 from flask.sansio.scaffold import find_package
 from jinja2 import FileSystemBytecodeCache
@@ -186,6 +187,16 @@ def register_filters(app: Flask) -> None:
             {integrity} {attrs}>""",
         )
 
+    def static_js(filename: str, endpoint: str = "static", **kwargs: Any) -> Markup:
+        attrs = attrstr(kwargs)
+        url = url_for(endpoint, filename=f"js/{filename}", **getversion())
+        return Markup(f'<script src="{url}" {attrs}></script>')
+
+    def static_css(filename: str, endpoint: str = "static", **kwargs: Any) -> Markup:
+        attrs = attrstr(kwargs)
+        url = url_for(endpoint, filename=f"css/{filename}", **getversion())
+        return Markup(f'<link rel="stylesheet" href="{url}" {attrs}>')
+
     # for cache busting js and css files
     # e.g. url_for('static', filename='js/myjs.js', **getversion())
     version = app.config["VERSION"]
@@ -202,6 +213,8 @@ def register_filters(app: Flask) -> None:
     app.jinja_env.globals["include_raw"] = include_raw
     app.jinja_env.globals["cdn_js"] = cdn_js
     app.jinja_env.globals["cdn_css"] = cdn_css
+    app.jinja_env.globals["static_js"] = static_js
+    app.jinja_env.globals["static_css"] = static_css
     app.jinja_env.globals["year"] = datetime.now().year
     app.jinja_env.globals["base_template"] = app.config["BASE_TEMPLATE"]
     app.jinja_env.globals["getversion"] = getversion
