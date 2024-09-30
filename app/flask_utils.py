@@ -124,7 +124,7 @@ def register_filters(app: Flask) -> None:
     with open(join(app.root_path, "cdn.toml"), "rb") as fp:
         CDN = tomllib.load(fp)
 
-    def include_raw(filename: str) -> Markup:
+    def include_raw(filename: str, script: bool = False) -> Markup:
         def markup(loader: FileSystemLoader | None) -> Markup | None:
             if loader is None:
                 return None
@@ -132,6 +132,8 @@ def register_filters(app: Flask) -> None:
                 f = Path(path).joinpath(filename)
                 if f.is_file():
                     with gzip.open(f, "rt", encoding="utf8") as fp:
+                        if script:
+                            return Markup(f"<script>{fp.read()}</script>")
                         return Markup(fp.read())
             return None
 
@@ -156,6 +158,8 @@ def register_filters(app: Flask) -> None:
         if ldr is None:
             raise TemplateNotFound(filename)
         src = ldr.get_source(app.jinja_env, filename)[0]
+        if script:
+            return Markup(f"<script>{src}</script>")
         return Markup(src)
 
     def cdn_js(key, **kwargs):
