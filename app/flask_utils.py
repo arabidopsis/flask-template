@@ -11,6 +11,7 @@ from pathlib import Path
 from random import random
 from typing import Any
 from typing import Iterator
+from typing import Literal
 
 from flask import current_app
 from flask import Flask
@@ -124,7 +125,13 @@ def register_filters(app: Flask) -> None:
     with open(join(app.root_path, "cdn.toml"), "rb") as fp:
         CDN = tomllib.load(fp)
 
-    def include_raw(filename: str, script: bool = False) -> Markup:
+    def include_raw(filename: str, kind: Literal["js", "css", None] = None) -> Markup:
+        ss, xs = "", ""
+        if kind == "css":
+            ss, xs = "<style>", "</style>"
+        elif kind == "js":
+            ss, xs = "<script>", "</script>"
+
         def markup(loader: FileSystemLoader | None) -> Markup | None:
             if loader is None:
                 return None
@@ -132,9 +139,9 @@ def register_filters(app: Flask) -> None:
                 f = Path(path).joinpath(filename)
                 if f.is_file():
                     with gzip.open(f, "rt", encoding="utf8") as fp:
-                        if script:
-                            return Markup(f"<script>{fp.read()}</script>")
-                        return Markup(fp.read())
+                        src = fp.read()
+                        return Markup(f"{ss}{src}{xs}")
+
             return None
 
         def get_loaders() -> Iterator[FileSystemLoader]:
@@ -158,9 +165,7 @@ def register_filters(app: Flask) -> None:
         if ldr is None:
             raise TemplateNotFound(filename)
         src = ldr.get_source(app.jinja_env, filename)[0]
-        if script:
-            return Markup(f"<script>{src}</script>")
-        return Markup(src)
+        return Markup(f"{ss}{src}{xs}")
 
     def cdn_js(key, **kwargs):
         js = CDN[key]["js"]
