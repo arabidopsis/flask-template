@@ -1,21 +1,22 @@
-[tool.poetry]
+[project]
 name = "app"
 version = "0.1.0"
 description = "Simple Template to bootstrap a flask app"
-authors = ["arabidopsis <ian.castleden@gmail.com>"]
-license = "MIT"
+authors = [{ name = "arabidopsis", email = "ian.castleden@gmail.com" }]
+requires-python = "~=3.11"
 readme = "README.md"
+license = "MIT"
+dependencies = [
+    "flask>=3.0.3,<4",
+    "python-dotenv>=1.0.1,<2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-flask = "^3.0.3"
-python-dotenv = "^1.0.1"
-
-
-[tool.poetry.group.dev.dependencies]
-black = "^24.8.0"
-pre-commit = "^3.8.0"
+[dependency-groups]
+install = [
+	'flask-nginx',
+	'gunicorn'
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
