@@ -12,6 +12,11 @@ FONT_ICONS = True
 
 ICON = "img/flask.webp"
 
+MESSAGE = """
+Pretty minimal template to get started with a flask website.
+Feel free to hack and delete your copy of it.
+"""
+
 # create an SMTP logger for
 # all unhandled server errors (e.g. 500) will
 # send an email to ADMINS
